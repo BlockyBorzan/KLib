@@ -19,7 +19,7 @@ versioning {
     // NOTE: versioning handled by grabver plugin (https://github.com/davideas/GrabVer)
     // Required (number)
     major 0 /* IMPORTANT: INCREASE AFTER EACH MAJOR CHANGE/FEATURE/ADDITION... */
-    minor 3 /* IMPORTANT: INCREASE AFTER EACH NEW FEATURE... */
+    minor 4 /* IMPORTANT: INCREASE AFTER EACH NEW FEATURE... */
     // Optional, force custom patch (number)
     // patch 7 /* IMPORTANT: INCREASES AFTER EACH SHADOWJAR BUILD (TEST THIS)... */
     // Optional (any string)
