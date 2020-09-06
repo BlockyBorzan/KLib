@@ -12,9 +12,7 @@ buildscript {
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.4.0'
     id 'org.jetbrains.dokka' version "1.4.0-rc"
-    id 'com.github.johnrengelman.shadow' version '6.0.0'
     id 'eu.davidea.grabver' version '2.0.2'
-    id 'net.researchgate.release' version '2.8.1'
 }
 
 versioning {
@@ -34,7 +32,7 @@ versioning {
 
 group 'me.blocky.lib.klib'
 version versioning.name
-String name = "Kotlin Lib"
+String name = "Kotlin-Lib"
 
 repositories {
     mavenCentral()
@@ -47,21 +45,7 @@ dependencies {
 apply plugin: 'java'
 
 tasks {
-    shadowJar {
-        getArchiveBaseName().set(name)
-        getArchiveClassifier().set(null)
-        getArchiveVersion().set(versioning.name)
-        minimize()
-        doLast {
-            println("Created artifact $name-${versioning.name}")
-        }
-    }
-
     task incrementPatchVersion {}
-}
-
-release {
-    failOnUpdateNeeded = false
 }
 
 
