@@ -60,5 +60,9 @@ tasks {
     task incrementPatchVersion {}
 }
 
+release {
+    failOnUpdateNeeded = false
+}
+
 
 
