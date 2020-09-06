@@ -1,7 +1,4 @@
-package extensions
-
 import java.io.File
-
 
 /**
  * Creates a new file or directory if the extended [File] does not exist.
