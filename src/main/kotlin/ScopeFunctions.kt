@@ -28,19 +28,22 @@ inline fun <R> R.transformIf(condition: Boolean, block: R.() -> R): R {
 }
 
 /**
- * Throws the specified [throwable] if the [conditionBlock] is true. Returns `this` value otherwise.
+ * Calls the specified function [conditionBlock] with `this` value as its receiver. If the result is true,
+ * throws the result of the function [throwableBlock] called with `this` value as its receiver.
+ * Otherwise returns `this` value
  */
-fun <R> R.exceptIf(conditionBlock: R.() -> Boolean, throwable: Throwable): R {
-  if(conditionBlock()) throw throwable
+fun <R> R.exceptIf(conditionBlock: R.() -> Boolean, throwableBlock: R.() -> Throwable): R {
+  if(conditionBlock()) throw throwableBlock()
   return this
 }
 
 /**
- * Throws the specified [throwable] if the [conditionBlock] result is true. Returns `this` value otherwise.
- */
-fun <R> R.throwIf(conditionBlock: (R) -> Boolean, throwable: Throwable): R {
-  if(conditionBlock(this)) throw throwable
+* Calls the specified function [conditionBlock] with `this` value as its argument. If the result is true,
+* throws the result of the function [throwableBlock] called with `this` value as its argument.
+ * Otherwise returns `this` value
+*/
+fun <R> R.throwIf(conditionBlock: (R) -> Boolean, throwableBlock: (R) -> Throwable): R {
+  if(conditionBlock(this)) throw throwableBlock(this)
   return this
 }
-
 
