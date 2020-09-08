@@ -1,4 +1,5 @@
 import java.io.File
+import java.io.IOException
 
 /**
  * Creates a new file or directory if the extended [File] does not exist.
@@ -18,3 +19,20 @@ else
 {
   this.mkdirs(); this
 }
+
+/**
+ * Returns true if the file has a valid canonical and false if not.
+ *
+ * This serves to weed out invalid file names.
+ */
+fun File.hasValidName(): Boolean = try {
+  canonicalPath
+  true
+} catch (e: IOException) {
+  false
+}
+
+/**
+ * Returns true if the string represents a valid file name and false if not.
+ */
+fun String.isValidFilename(): Boolean = File(this).hasValidName()
