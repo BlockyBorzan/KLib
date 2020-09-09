@@ -105,3 +105,21 @@ fun <T> Appendable.appendWhen(appendage: T, condition: Boolean)
 {
   if (condition) this.appendElement(appendage, null)
 }
+
+/**
+ * Returns the first element in the Collection that would be sorted before the specified [element] if it were
+ * in the list, or null if no such element exists. If an element equal to the specified element is already part of the list,
+ * it is returned.
+ */
+inline fun <reified T: Comparable<T>> Collection<T>.getHighestBelow(element: T): T? = listOf(*this.toTypedArray(), element).sorted().let {
+  it.getOrNull(it.lastIndexOf(element) - 1)
+}
+
+/**
+ * Returns the first element in the Collection that would be sorted after the specified [element] if it were
+ * in the list, or null if no such element exists. If an element equal to the specified element is already part of the list,
+ * it is returned.
+ */
+inline fun <reified T: Comparable<T>> Collection<T>.getLowestAbove(element: T): T? = listOf(*this.toTypedArray(), element).sorted().let {
+  it.getOrNull(it.indexOf(element) + 1)
+}
