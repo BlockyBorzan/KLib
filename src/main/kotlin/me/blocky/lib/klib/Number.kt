@@ -1,3 +1,5 @@
+package me.blocky.lib.klib
+
 /**
  * Returns true if the calling [Int] is even (divisible by 2). False if it is odd.
  */

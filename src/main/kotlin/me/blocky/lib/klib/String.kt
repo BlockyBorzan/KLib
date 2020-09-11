@@ -1,3 +1,5 @@
+package me.blocky.lib.klib
+
 /**
  * Replaces all occurrences of each [Pair]'s [Pair.first] from [pairs] with the respective [Pair.second] in the calling string and returns it.
  */

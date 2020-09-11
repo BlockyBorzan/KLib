@@ -1,3 +1,5 @@
+package me.blocky.lib.klib
+
 /**
  * Shortens [StackTraceElement.getClassName] to the substring after the last **'.'**.
  *

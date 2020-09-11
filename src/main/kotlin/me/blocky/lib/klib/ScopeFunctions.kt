@@ -1,3 +1,5 @@
+package me.blocky.lib.klib
+
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract

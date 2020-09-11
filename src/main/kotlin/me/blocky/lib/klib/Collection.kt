@@ -1,3 +1,5 @@
+package me.blocky.lib.klib
+
 import java.util.*
 
 /**

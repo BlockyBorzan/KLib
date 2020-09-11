@@ -1,3 +1,5 @@
+package me.blocky.lib.klib
+
 import java.io.File
 import java.io.IOException
 
