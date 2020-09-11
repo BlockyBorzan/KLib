@@ -60,7 +60,7 @@ tasks {
 }
 
 githubRelease {
-    token getProperty('blockyGithubToken') ?: 'dummytoken' // This is your personal access token with Repo permissions
+    token getProperty('blockyGithubToken') // This is your personal access token with Repo permissions
     // You get this from your user settings > developer settings > Personal Access Tokens
     owner 'BlockyBorzan' // default is the last part of your group. Eg group: "com.github.breadmoirai" => owner: "breadmoirai"
     repo name // by default this is set to your project name
