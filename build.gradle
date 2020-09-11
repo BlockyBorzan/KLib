@@ -12,21 +12,6 @@ plugins {
     id 'maven'
 }
 
-versioning {
-    // NOTE: versioning handled by grabver plugin (https://github.com/davideas/GrabVer)
-    // Required (number)
-    major 1 /* IMPORTANT: INCREASE AFTER EACH MAJOR CHANGE/FEATURE/ADDITION... */
-    minor 0 /* IMPORTANT: INCREASE AFTER EACH NEW FEATURE... */
-    // Optional, force custom patch (number)
-    // patch 7 /* IMPORTANT: INCREASES AFTER EACH SHADOWJAR BUILD (TEST THIS)... */
-    // Optional (any string)
-    // preRelease "RC1"
-    // Optional, custom task name to trigger the increase of the version
-    incrementOn 'incrementPatchVersion'
-    // Optional, custom task name for which you want to save the versioning file
-    saveOn 'incrementPatchVersion'
-}
-
 def name = 'KLib'
 group 'me.blocky.lib.klib'
 version versioning.name
@@ -59,22 +44,28 @@ tasks {
     }
 }
 
+versioning {
+    major 1
+    minor 1
+    incrementOn 'incrementPatchVersion'
+    saveOn 'incrementPatchVersion'
+}
+
 githubRelease {
-    token getProperty('blockyGithubToken') // This is your personal access token with Repo permissions
-    // You get this from your user settings > developer settings > Personal Access Tokens
-    owner 'BlockyBorzan' // default is the last part of your group. Eg group: "com.github.breadmoirai" => owner: "breadmoirai"
-    repo name // by default this is set to your project name
-    tagName versioning.name // by default this is set to "v${project.version}"
-    targetCommitish 'master' // by default this is set to "master"
-    releaseName versioning.name // Release title, by default this is the same as the tagName
+    token getProperty('blockyGithubToken')
+    owner 'BlockyBorzan'
+    repo name
+    tagName versioning.name
+    targetCommitish 'master'
+    releaseName versioning.name
     body ""
     draft false
     prerelease false
-    releaseAssets shadowJar.archiveFile // this points to which files you want to upload as assets with your release
+    releaseAssets shadowJar.archiveFile
 
-    overwrite true // by default false; if set to true, will delete an existing release with the same tag and name
-    dryRun false // by default false; you can use this to see what actions would be taken without making a release
-    apiEndpoint "https://api.github.com" // should only change for github enterprise users
-    client // This is the okhttp client used for http requests
+    overwrite true
+    dryRun false
+    apiEndpoint "https://api.github.com"
+    client
 }
 

@@ -38,3 +38,7 @@ fun File.hasValidName(): Boolean = try {
  * Returns true if the string represents a valid file name and false if not.
  */
 fun String.isValidFilename(): Boolean = File(this).hasValidName()
+
+/** Returns the absolute parent folder of the file*/
+val File.parentFolder: File
+  get() = absoluteFile.parentFile
