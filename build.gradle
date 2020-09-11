@@ -1,12 +1,6 @@
 buildscript {
-    repositories {
-        // or Gradle plugins repository:
-        maven { url "https://plugins.gradle.org/m2/" }
-    }
-    dependencies {
-        // grabver versioning plugin
-        classpath "eu.davidea:grabver:2.0.2"
-    }
+    repositories { maven { url 'https://plugins.gradle.org/m2/' } }
+    dependencies { classpath 'eu.davidea:grabver:2.0.2' }
 }
 
 plugins {
@@ -15,6 +9,8 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '6.0.0'
     id 'eu.davidea.grabver' version '2.0.2'
     id 'com.github.breadmoirai.github-release' version '2.2.12'
+    id 'com.jfrog.bintray' version '1.8.5'
+    id 'maven-publish'
 }
 
 versioning {
@@ -27,12 +23,12 @@ versioning {
     // Optional (any string)
     // preRelease "RC1"
     // Optional, custom task name to trigger the increase of the version
-    incrementOn "incrementPatchVersion"
+    incrementOn 'incrementPatchVersion'
     // Optional, custom task name for which you want to save the versioning file
-    saveOn "incrementPatchVersion"
+    saveOn 'incrementPatchVersion'
 }
 
-String name = "KLib"
+def name = 'KLib'
 group 'me.blocky.lib.klib'
 version versioning.name
 
@@ -67,17 +63,17 @@ tasks {
 githubRelease {
     token getProperty('blockyGithubToken') // This is your personal access token with Repo permissions
     // You get this from your user settings > developer settings > Personal Access Tokens
-    owner "BlockyBorzan" // default is the last part of your group. Eg group: "com.github.breadmoirai" => owner: "breadmoirai"
+    owner 'BlockyBorzan' // default is the last part of your group. Eg group: "com.github.breadmoirai" => owner: "breadmoirai"
     repo name // by default this is set to your project name
     tagName versioning.name // by default this is set to "v${project.version}"
-    targetCommitish "master" // by default this is set to "master"
+    targetCommitish 'master' // by default this is set to "master"
     releaseName versioning.name // Release title, by default this is the same as the tagName
     body ""
     draft false
     prerelease false
     releaseAssets shadowJar.archiveFile // this points to which files you want to upload as assets with your release
 
-    overwrite false // by default false; if set to true, will delete an existing release with the same tag and name
+    overwrite true // by default false; if set to true, will delete an existing release with the same tag and name
     dryRun false // by default false; you can use this to see what actions would be taken without making a release
     apiEndpoint "https://api.github.com" // should only change for github enterprise users
     client // This is the okhttp client used for http requests
