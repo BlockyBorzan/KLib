@@ -1,5 +1,7 @@
 package me.blocky.lib.klib
 
+import org.apache.commons.text.WordUtils
+
 /**
  * Replaces all occurrences of each [Pair]'s [Pair.first] from [pairs] with the respective [Pair.second] in the calling string and returns it.
  */
@@ -47,3 +49,27 @@ fun String.isSurroundedBy(prefix: String, suffix: String = prefix, ignoreCase: B
 {
   return this.startsWith(prefix, ignoreCase) && this.endsWith(suffix, ignoreCase)
 }
+
+/**
+ * Returns a String that is capitalized using [WordUtils.capitalizeFully] with [this] as the str parameter and
+ * [wordDelimiters] as the delimiters argument.
+ *
+ * The [delimiterMapping] parameter can be used to replace delimiters with new delimiter. If it is empty, no
+ * replacements take place. The delimiterMapping can contain keys that do not necessarily have to be present in the
+ * wordDelimiters parameter.
+ */
+fun String.toCamelCase(
+    vararg wordDelimiters: Char = charArrayOf(' ', '_'),
+    delimiterMapping: Map<Char, String> = emptyMap()
+): String = WordUtils.capitalizeFully(this, *wordDelimiters).modifyIf(delimiterMapping.isNotEmpty()) {
+  it.replace(*delimiterMapping.entries.map { (k, v) -> k.toString() to v }.toTypedArray())
+}
+
+/**
+ * Calls the [toCamelCase] method with the [wordDelimiters] parameter and a map that maps each Char in wordDelimiters
+ * to the [newDelimiter].
+ */
+fun String.toCamelCase(
+    vararg wordDelimiters: Char = charArrayOf(' ', '_'),
+    newDelimiter: String = ""
+): String = toCamelCase(wordDelimiters = wordDelimiters, wordDelimiters.map { it to newDelimiter }.toMap())
