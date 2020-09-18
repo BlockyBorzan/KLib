@@ -9,8 +9,17 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '6.0.0'
     id 'eu.davidea.grabver' version '2.0.2'
     id 'com.github.breadmoirai.github-release' version '2.2.12'
+    id 'maven-publish'
     id 'maven'
 }
+
+versioning {
+    major 1
+    minor 2
+    incrementOn 'incrementPatchVersion'
+    saveOn 'incrementPatchVersion'
+}
+
 
 def name = 'KLib'
 group 'me.blocky.lib.klib'
@@ -21,7 +30,8 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib'
+    compileOnly 'org.jetbrains.kotlin:kotlin-stdlib'
+    implementation 'org.apache.commons:commons-text:+'
 }
 
 tasks {
@@ -35,20 +45,14 @@ tasks {
         }
     }
     task incrementPatchVersion {}
-    task printVersion {
-        println(versioning.name)
-    }
 
     githubRelease {
         dependsOn shadowJar
     }
-}
 
-versioning {
-    major 1
-    minor 1
-    incrementOn 'incrementPatchVersion'
-    saveOn 'incrementPatchVersion'
+    compileKotlin {
+        kotlinOptions.freeCompilerArgs += '-Xopt-in=kotlin.RequiresOptIn'
+    }
 }
 
 githubRelease {
@@ -69,3 +73,14 @@ githubRelease {
     client
 }
 
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = group
+            artifactId = name
+            version = versioning.name
+
+            from components.java
+        }
+    }
+}
